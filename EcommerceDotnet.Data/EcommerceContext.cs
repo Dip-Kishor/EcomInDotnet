@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EcommerceDotnet.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace EcommerceDotnet.Data
 		{
 		}
 
-		
+		public DbSet<ItemModel> Items { get; set; } = default!;
 	}
 }
