@@ -1,4 +1,11 @@
+using EcommerceDotnet.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<EcommerceContext>(options =>
+	options.UseSqlServer(builder.Configuration.GetConnectionString("EcommerceContext")));// ?? throw new InvalidOperationException("Connection string 'BWIJAN20WEBContext' not found.")));
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
