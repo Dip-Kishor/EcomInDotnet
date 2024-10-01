@@ -1,0 +1,22 @@
+﻿@model EcommerceDotnet.Models.UserModel
+@{
+    Layout = "_Layout_Admin";
+}
+<h1 class="ml-5 mr-5">Edit User</h1>
+
+<form class="ml-5 mr-5" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Username"></label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <button type="submit">Save</button>
+</form>
+<a class="ml-5 mr-5" asp-action="Index">Back to List</a>
+

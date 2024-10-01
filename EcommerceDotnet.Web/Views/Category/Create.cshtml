@@ -1,0 +1,29 @@
+﻿@model EcommerceDotnet.Models.CategoryModel;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_Layout_Admin";
+}
+<h1 class="d-flex justify-content-center">Create</h1>
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+       
+         
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <a asp-action="Index">Back to List</a>
+</div>

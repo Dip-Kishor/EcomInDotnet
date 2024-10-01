@@ -1,0 +1,301 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<ItemModel>
+<!-- Start Hero Section -->
+<div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>Modern Interior <span clsas="d-block">Design Studio</span></h1>
+					<p class="mb-4">Welcome to Furni, where style meets comfort and quality craftsmanship reigns supreme.</p>
+					<p><a asp-controller="Shop" asp-action="Index" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
+				</div>
+			</div>
+			<div class="col-lg-7">
+				<div class="hero-img-wrap">
+					<img src="images/couch.png" class="img-fluid">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Hero Section -->
+<!-- Start Product Section -->
+ <div class="product-section">
+	<div class="container">
+		<div class="row">
+
+			<!-- Start Column 1 -->
+			<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+				<h2 class="mb-4 section-title">Crafted with excellent material.</h2>
+				<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. </p>
+				<p><a href="shop.html" class="btn">Explore</a></p>
+			</div>
+			<!-- End Column 1 -->
+			<!-- Start Column 2 -->
+			@foreach (var item in Model)
+			{
+
+
+				<!-- Start Column 1 -->
+				<div class="col-12 col-md-4 col-lg-3 mb-5">
+					<a class="product-item" href="#">
+						<img src="@item.ImageURL" class="img-fluid product-thumbnail">
+						<h3 class="product-title">@item.Name</h3>
+						<strong class="product-price">@item.Price.ToString("N")</strong><br />
+						<strong class="product-price">-@item.Discount.ToString("N")</strong>
+
+						<span class="icon-cross">
+							<form asp-controller="Shop" asp-action="Cart" method="post">
+								<input type="hidden" name="itemId" value="@item.Id" />
+								<button type="submit"><img src="/images/cross.svg" class="img-fluid"> </button>
+							</form>
+						</span>
+					</a>
+				</div>
+				<!-- End Column 1 -->
+			}
+
+		</div>
+	</div>
+</div> 
+<!-- End Product Section -->
+<!-- Start Why Choose Us Section -->
+<div class="why-choose-section">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-6">
+				<h2 class="section-title">Why Choose Us</h2>
+				<p>Experience the Furni difference today and elevate your living spaces with style, comfort, and quality.</p>
+
+				<div class="row my-5">
+					<div class="col-6 col-md-6">
+						<div class="feature">
+							<div class="icon">
+								<img src="images/truck.svg" alt="Image" class="imf-fluid">
+							</div>
+							<h3>Fast &amp; Free Shipping</h3>
+							<p>Experience convenience with our fast and free shipping services. Your furniture will arrive promptly, so you can enjoy your new pieces without delay.</p>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-6">
+						<div class="feature">
+							<div class="icon">
+								<img src="images/bag.svg" alt="Image" class="imf-fluid">
+							</div>
+							<h3>Easy to Shop</h3>
+							<p>Browse and shop with ease on our user-friendly website. Our intuitive interface makes finding the perfect furniture for your home a breeze.</p>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-6">
+						<div class="feature">
+							<div class="icon">
+								<img src="images/support.svg" alt="Image" class="imf-fluid">
+							</div>
+							<h3>24/7 Support</h3>
+							<p>We're here for you around the clock. Our dedicated support team is available 24/7 to assist you with any inquiries or concerns you may have.</p>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-6">
+						<div class="feature">
+							<div class="icon">
+								<img src="images/return.svg" alt="Image" class="imf-fluid">
+							</div>
+							<h3>Hassle Free Returns</h3>
+							<p>
+								Not completely satisfied with your purchase? No problem. Enjoy hassle-free returns for a worry-free shopping experience.
+							</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="col-lg-5">
+				<div class="img-wrap">
+					<img src="images/why-choose-us-img.jpg" alt="Image" class="img-fluid">
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- End Why Choose Us Section -->
+<!-- Start We Help Section -->
+<div class="we-help-section">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-7 mb-5 mb-lg-0">
+				<div class="imgs-grid">
+					<div class="grid grid-1"><img src="images/img-grid-1.jpg" alt="Untree.co"></div>
+					<div class="grid grid-2"><img src="images/img-grid-2.jpg" alt="Untree.co"></div>
+					<div class="grid grid-3"><img src="images/img-grid-3.jpg" alt="Untree.co"></div>
+				</div>
+			</div>
+			<div class="col-lg-5 ps-lg-5">
+				<h2 class="section-title mb-4">We Help You Make Modern Interior Design</h2>
+				<p>Unlock the potential of your living spaces with our expert assistance in modern interior design. Our team is dedicated to providing tailored solutions to elevate your home's aesthetic appeal and functionality.</p>
+
+				<ul class="list-unstyled custom-list my-4">
+					<li> Benefit from our experienced team's advice tailored to your vision.</li>
+					<li> Explore our selection of high-quality, modern furniture and décor pieces.</li>
+					<li>Personalized design services ensure your home reflects your unique style.</li>
+					<li>From concept to completion, we're here to assist every step of the way.</li>
+				</ul>
+				<p><a herf="#" class="btn">Explore</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End We Help Section -->
+<!-- Start Popular Product -->
+<div class="popular-product">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+				<div class="product-item-sm d-flex">
+					<div class="thumbnail">
+						<img src="images/product-1.png" alt="Image" class="img-fluid">
+					</div>
+					<div class="pt-3">
+						<h3>Nordic Chair</h3>
+						<p>Elevate your home with our Nordic Chair, a sleek and stylish addition to any modern space.  </p>
+						<p><a href="#">Read More</a></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+				<div class="product-item-sm d-flex">
+					<div class="thumbnail">
+						<img src="images/product-2.png" alt="Image" class="img-fluid">
+					</div>
+					<div class="pt-3">
+						<h3>Kruzo Aero Chair</h3>
+						<p>The Kruzo Aero Chair redefines comfort and style with its sleek design and ergonomic features, offering unparalleled support for extended periods of sitting</p>
+						<p><a href="#">Read More</a></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+				<div class="product-item-sm d-flex">
+					<div class="thumbnail">
+						<img src="images/product-3.png" alt="Image" class="img-fluid">
+					</div>
+					<div class="pt-3">
+						<h3>Ergonomic Chair</h3>
+						<p>Engineered with precision to promote proper posture and alleviate discomfort, it's the perfect blend of style and functionality for long hours of seated work or relaxation. </p>
+						<p><a href="#">Read More</a></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- End Popular Product -->
+<!-- Start Testimonial Slider -->
+<div class="testimonial-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7 mx-auto text-center">
+				<h2 class="section-title">Testimonials</h2>
+			</div>
+		</div>
+
+		<div class="row justify-content-center">
+			<div class="col-lg-12">
+				<div class="testimonial-slider-wrap text-center">
+
+					<div id="testimonial-nav">
+						<span class="prev" data-controls="prev"><span class="fa fa-chevron-left"></span></span>
+						<span class="next" data-controls="next"><span class="fa fa-chevron-right"></span></span>
+					</div>
+
+					<div class="testimonial-slider">
+
+						<div class="item">
+							<div class="row justify-content-center">
+								<div class="col-lg-8 mx-auto">
+
+									<div class="testimonial-block text-center">
+										<blockquote class="mb-5">
+											<p>I recently purchased a new living room set from Furni, and I couldn't be happier with my experience. The quality of the furniture exceeded my expectations, and the customer service was outstanding. From the initial consultation to the delivery and setup, everything was seamless. I highly recommend [Your Store Name] to anyone looking for stylish and high-quality furniture.</p>
+										</blockquote>
+
+										<div class="author-info">
+											<div class="author-pic">
+												<img src="images/person-1.png" alt="Apekshya Adhikari" class="img-fluid">
+											</div>
+											<h3 class="font-weight-bold">Apekshya Adhikari</h3>
+											<span class="position d-block mb-3">CEO, Junky Enterprise.</span>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- END item -->
+
+						<div class="item">
+							<div class="row justify-content-center">
+								<div class="col-lg-8 mx-auto">
+
+									<div class="testimonial-block text-center">
+										<blockquote class="mb-5">
+											<p>I've been a loyal customer of Furni for years, and they never disappoint. Their selection of modern furniture is unparalleled, and their team always goes above and beyond to ensure I find exactly what I'm looking for. Whether it's a statement piece for my living room or a functional addition to my home office, I always turn to Furni. Thank you for consistently providing exceptional products and service!</p>
+										</blockquote>
+
+										<div class="author-info">
+											<div class="author-pic">
+												<img src="~/images/person_2.jpg" alt="David Miller" class="img-fluid">
+											</div>
+											<h3 class="font-weight-bold">Sunav Sapkota</h3>
+											<span class="position d-block mb-3">Manager, Surfax Inc.</span>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- END item -->
+
+						<div class="item">
+							<div class="row justify-content-center">
+								<div class="col-lg-8 mx-auto">
+
+									<div class="testimonial-block text-center">
+										<blockquote class="mb-5">
+											<p>I recently redecorated my home with furniture from Furni Emporium, and I am thrilled with the results. Not only did they help me choose pieces that perfectly complemented my style, but the quality of the furniture is exceptional. The entire process, from browsing their website to the delivery and setup of my furniture, was seamless and stress-free. I am beyond impressed and will definitely be returning for future furniture needs.</p>
+										</blockquote>
+
+										<div class="author-info">
+											<div class="author-pic">
+												<img src="images/person_3.jpg" alt="AB de Villiers" class="img-fluid">
+											</div>
+											<h3 class="font-weight-bold">AB de Villiers</h3>
+											<span class="position d-block mb-3">HOD, Ambition College</span>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- END item -->
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Testimonial Slider -->
+

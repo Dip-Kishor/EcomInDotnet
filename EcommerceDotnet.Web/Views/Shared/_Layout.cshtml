@@ -1,0 +1,244 @@
+﻿
+<!Doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap4" />
+
+	<!-- Bootstrap CSS -->
+	@* <link href="/lib/bootstrap/dist/css/bootstrap.min.css"> *@
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<link href="/css/tiny-slider.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/site.css" rel="stylesheet">
+
+	<title>Furni Emporium</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+		.modal {
+			display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 1000; /* Sit on top */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+		.modal-content {
+			background-color: #3b5d50;
+			margin: 5% 65%;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 20%;
+			color:white;
+		}
+
+		.userInfoButton{
+			background-color: #3b5d50;
+			color:white;
+		}
+
+		.close {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+			.close:hover,
+			.close:focus {
+				color: black;
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+		.custom-user-btn {
+			border: none; /* Remove the border */
+			background: none; /* Remove background */
+			padding: 0; /* Remove padding */
+			color: #fff; 
+			cursor: pointer;
+			width:2%;
+		}
+
+			.custom-btn:focus {
+				outline: none; /* Remove focus outline */
+			}
+
+			.custom-btn:hover {
+				color: #ddd; /* Optional hover effect */
+				
+			}
+
+		.custom-btn {
+			border: none; /* Remove the border */
+			background: none; /* Remove background */
+			padding: 0; /* Remove padding */
+			color: #fff;
+			cursor: pointer;
+			width: 20%;
+		}
+
+</style>
+</head>
+
+<body>
+	<!-- Start Header/Navigation -->
+	<header class="fixed-top">
+		<partial name="_Navigation"  />
+	</header>
+	<!-- End Header/Navigation -->
+	@RenderBody()
+	<!-- Start Footer Section -->
+	<footer class="footer-section">
+		<div class="container relative">
+
+			@* <div class="sofa-img">
+			<img src="images/sofa.png" alt="Image" class="img-fluid">
+			</div> *@
+
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="subscription-form">
+						<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+						<form action="#" class="row g-3">
+							<div class="col-auto">
+								<input type="text" class="form-control" placeholder="Enter your name">
+							</div>
+							<div class="col-auto">
+								<input type="email" class="form-control" placeholder="Enter your email">
+							</div>
+							<div class="col-auto">
+								<button class="btn btn-primary">
+									<span class="fa fa-paper-plane"></span>
+								</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row g-5 mb-5">
+				<div class="col-lg-4">
+					<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
+					<p class="mb-4">Elevate your living spaces with Furni, your premier destination for exquisite furniture and home decor. Discover timeless elegance, exceptional quality, and unparalleled customer service with every purchase.</p>
+
+					<ul class="list-unstyled custom-social">
+						<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+						<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+						<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+						<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+					</ul>
+				</div>
+
+				<div class="col-lg-8">
+					<div class="row links-wrap">
+						<div class="col-6 col-sm-6 col-md-3">
+							<ul class="list-unstyled">
+								<li><a href="#">About us</a></li>
+								<li><a href="#">Services</a></li>
+								<li><a href="#">Blog</a></li>
+								<li><a href="#">Contact us</a></li>
+							</ul>
+						</div>
+
+						<div class="col-6 col-sm-6 col-md-3">
+							<ul class="list-unstyled">
+								<li><a href="#">Support</a></li>
+								<li><a href="#">Knowledge base</a></li>
+								<li><a href="#">Live chat</a></li>
+							</ul>
+						</div>
+
+						<div class="col-6 col-sm-6 col-md-3">
+							<ul class="list-unstyled">
+								<li><a href="#">Jobs</a></li>
+								<li><a href="#">Our team</a></li>
+								<li><a href="#">Leadership</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+						<div class="col-6 col-sm-6 col-md-3">
+							<ul class="list-unstyled">
+								<li><a href="#">Nordic Chair</a></li>
+								<li><a href="#">Kruzo Aero</a></li>
+								<li><a href="#">Ergonomic Chair</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="border-top copyright">
+				<div class="row pt-4">
+					<div class="col-lg-6">
+						<p class="mb-2 text-center text-lg-start">
+							Copyright &copy; Furni <script>document.write(new Date().getFullYear());</script>. All Rights Reserved
+						</p>
+					</div>
+
+					<div class="col-lg-6 text-center text-lg-end">
+						<ul class="list-unstyled d-inline-flex ms-auto">
+							<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	<!-- End Footer Section -->
+
+
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/tiny-slider.js"></script>
+	<script src="/js/custom.js"></script>
+	<script src="/js/site.js"></script>
+
+	<script>
+		$(document).ready(function () {
+			// Open the modal
+			$('#open-modal').click(function () {
+				$('#myModal').fadeIn();
+			});
+
+			// Close the modal
+			$('#close-modal').click(function () {
+				$('#myModal').fadeOut();
+			});
+			$('#close-modal1').click(function () {
+				$('#myModal').fadeOut();
+			});
+
+			// Optional: Close modal when clicking outside of it
+			$(window).click(function (event) {
+				if ($(event.target).is('#myModal')) {
+					$('#myModal').fadeOut();
+				}
+			});
+
+			// Confirm button action
+			$('#logout-button').click(function () {
+				$('#myModal').fadeOut(); // Close the modal after confirming
+			});
+		});
+	</script>
+</body>
+</html>

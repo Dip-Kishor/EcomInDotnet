@@ -1,0 +1,73 @@
+﻿@model IEnumerable<EcommerceDotnet.Models.CheckOutModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout_Admin";
+}
+
+<h1>Checkout Items List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(item.Country ?? "N/A")
+                </td>
+                <td>
+                    @(item.FirstName ?? "N/A")
+                </td>
+                <td>
+                    @(item.LastName ?? "N/A")
+                </td>
+                <td>
+                    @(item.CompanyName ?? "N/A")
+                </td>
+                <td>
+                    @(item.Address ?? "N/A")
+                </td>
+                <td>
+                    @(item.Email ?? "N/A")
+                </td>
+                <td>
+                    @(item.Phone ?? "N/A")
+                </td>
+                <td>
+                    @(item.Amount )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

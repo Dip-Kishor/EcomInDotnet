@@ -1,0 +1,134 @@
+﻿@model EcommerceDotnet.Models.CheckoutViewModel
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="favicon.png">
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="css/tiny-slider.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <title>Checkout</title>
+</head>
+
+<body>
+    <div class="hero">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-5">
+                    <div class="intro-excerpt">
+                        <h1>Checkout</h1>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="untree_co-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <div class="border p-4 rounded" role="alert">
+                        Returning customer? <a href="#">Click here</a> to login
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <h2 class="h3 mb-3 text-black">Billing Details</h2>
+                    <div class="p-3 p-lg-5 border bg-white">
+                        <form asp-controller="Shop" asp-action="ProcessCheckout" method="Post">
+                            <div class="form-group">
+                                <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                                <select asp-for="CheckOut.Country" class="form-control">
+                                    <option value="">Select a country</option>
+                                    <option value="Bangladesh">Bangladesh</option>
+                                    <option value="Nepal">Nepal</option>
+                                    <option value="Afghanistan">Afghanistan</option>
+                                    <option value="China">China</option>
+                                    <option value="India">India</option>
+                                    <option value="Pakistan">Pakistan</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CheckOut.FirstName" class="text-black">First Name <span class="text-danger">*</span></label>
+                                <input asp-for="CheckOut.FirstName" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CheckOut.LastName" class="text-black">Last Name <span class="text-danger">*</span></label>
+                                <input asp-for="CheckOut.LastName" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CheckOut.CompanyName" class="text-black">Company Name </label>
+                                <input asp-for="CheckOut.CompanyName" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CheckOut.Address" class="text-black">Address <span class="text-danger">*</span></label>
+                                <input asp-for="CheckOut.Address" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CheckOut.Email" class="text-black">Email <span class="text-danger">*</span></label>
+                                <input asp-for="CheckOut.Email" type="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CheckOut.Phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                                <input asp-for="CheckOut.Phone" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CheckOut.Notes" class="text-black">Order Notes</label>
+                                <textarea asp-for="CheckOut.Notes" cols="30" rows="5" class="form-control" placeholder="Write your notes here..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Place Order</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <h2 class="h3 mb-3 text-black">Your Order</h2>
+                            <div class="p-3 p-lg-5 border bg-white">
+                                <table class="table site-block-order-table mb-5">
+                                    <thead>
+                                    <th>Product</th>
+                                    <th>Total</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.CartItems)
+                                        {
+                                            <tr>
+                                                <td>@item.Name <strong class="mx-2">x</strong>1</td>
+                                                <td>$@item.Price</td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                                            <td class="text-black">$@Model.CartItems.Sum(i => i.Price)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                                            <td class="text-black font-weight-bold"><strong>$@Model.CartItems.Sum(i => i.Price)</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/tiny-slider.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+</html>
