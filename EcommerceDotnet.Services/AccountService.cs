@@ -62,11 +62,11 @@ namespace EcommerceDotnet.Services
         }
 
 		/*================================================================*/
-		public async Task<UserModel> Login(string username, string password)
+		public async Task<UserModel> Login(string email, string password)
 		{
             var user = _context.Users
                 .Include(u => u.Role) // This includes the related UserRole entity
-                .FirstOrDefault(u => u.Username == username);
+                .FirstOrDefault(u => u.Email == email);
 
             if (user == null)
 				return null; // Username not found
