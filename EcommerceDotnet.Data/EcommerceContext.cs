@@ -22,31 +22,31 @@ namespace EcommerceDotnet.Data
 		public DbSet<UserModel> Users { get; set; }
 		public DbSet<CategoryModel> Categories { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-            base.OnModelCreating(modelBuilder);
-            // Configure one-to-many relationship
-            modelBuilder.Entity<CategoryModel>()
-                .HasMany(c => c.Items)
-                .WithOne(i => i.Category)
-                .HasForeignKey(i => i.CategoryId);
+		//protected override void OnModelCreating(ModelBuilder modelBuilder)
+		//{
+  //          base.OnModelCreating(modelBuilder);
+  //          // Configure one-to-many relationship
+  //          modelBuilder.Entity<CategoryModel>()
+  //              .HasMany(c => c.Items)
+  //              .WithOne(i => i.Category)
+  //              .HasForeignKey(i => i.CategoryId);
 
-            modelBuilder.Entity<UserModel>().HasData(
+  //          modelBuilder.Entity<UserModel>().HasData(
 
-				new UserModel
-				{
-					Id = 1,
-					Username = "admin@gmail.com",
-					Password = HashPassword("admindip")
-				},
-				new UserModel
-				{
-					Id=2,
-					Username="manager@gmail.com",
-					Password = HashPassword("managerdip")
-				}
-				);
-		}
+		//		new UserModel
+		//		{
+		//			Id = 1,
+		//			Username = "admin@gmail.com",
+		//			Password = HashPassword("admindip")
+		//		},
+		//		new UserModel
+		//		{
+		//			Id=2,
+		//			Username="manager@gmail.com",
+		//			Password = HashPassword("managerdip")
+		//		}
+		//		);
+		//}
 
 		/*public static class ApplicationDataInitialiser
 		{
