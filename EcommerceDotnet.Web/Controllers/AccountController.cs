@@ -102,11 +102,11 @@ namespace EcommerceDotnet.Web.Controllers
 
 		[HttpPost,AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Login(string username, string password)
+		public async Task<IActionResult> Login(string email, string password)
 		{
 			if (ModelState.IsValid)
 			{
-				var user = await _accountService.Login(username, password);
+				var user = await _accountService.Login(email, password);
 
 				if (user == null)
 				{
@@ -116,7 +116,9 @@ namespace EcommerceDotnet.Web.Controllers
 
 
 				
-				SetTokenCookie("UserName", username!);
+				SetTokenCookie("Email", email!);
+				SetTokenCookie("UserName", user.Username);
+				SetTokenCookie("Role", user.Role.RoleName);
 
 				var sessionValue = HttpContext.Session.GetString("Username");
 				if (string.IsNullOrEmpty(sessionValue))

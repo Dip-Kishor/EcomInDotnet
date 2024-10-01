@@ -1,7 +1,11 @@
 ﻿@{
 	// Retrieve the username from the cookie
+	var email = Context.Request.Cookies["UserName"];
 	var username = Context.Request.Cookies["UserName"];
-	ViewBag.Username = username; // Store it in ViewBag for easy access in the layout
+	var role = Context.Request.Cookies["UserName"];
+	ViewBag.Email = email;
+	ViewBag.Username = username;
+	ViewBag.Role = role;
 }
 
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
@@ -23,18 +27,27 @@
 				@* <li><a class="nav-link" href="#">Services</a></li>
 				<li><a class="nav-link" href="#">Blog</a></li> *@
 				<li><a class="nav-link" href="#">Contact us</a></li>
+				@if (!User.Identity.IsAuthenticated)
+				{
+					<li><a class="nav-link" asp-controller="Account" asp-action="Login">Login</a></li>
+				}
+				else
+				{
+					
+						<button class=" custom-user-btn" id="open-modal">
+							<i class="fa-solid fa-user"></i>
+						</button>
+					
+				}
 			</ul>
-			
-
-			
-			<button class="btn custom-user-btn" id="open-modal"><i class="fa-solid fa-user"></i></button>
-
 			<!-- The Modal -->
 			<div id="myModal" class="modal">
 				<div class="modal-content">
 					<span class="close" id="close-modal">&times;</span>
 					<h2>User Information</h2>
 					<span>Username:&nbsp; @ViewBag.Username</span>
+					<span>Email:&nbsp; @ViewBag.Email</span>
+					<span>Role:&nbsp; @ViewBag.Role</span>
 					<div class="d-flex ms-auto">
 						<form asp-controller="Account" asp-action="Logout" method="post">
 							<button class=" custom-btn" type="submit" id="logout-button"><i class="fa-solid fa-right-from-bracket"></i></button>
