@@ -2,8 +2,8 @@
 <!-- Start Hero Section -->
 <style>
 	.custom-btn {
-		font-size: 0.875rem; 
-		padding: 0.25rem 0.5rem; 
+		font-size: 0.875rem;
+		padding: 0.25rem 0.5rem;
 	}
 </style>
 
@@ -26,8 +26,8 @@
 		<div class="row">
 			@foreach (var item in Model)
 			{
-				
-			
+
+
 			<!-- Start Column 1 -->
 			<div class="col-12 col-md-4 col-lg-3 mb-5">
 				<a class="product-item" href="#">
@@ -35,7 +35,7 @@
 					<h3 class="product-title">@item.Name</h3>
 					<strong class="product-price">@item.Price.ToString("N")</strong><br />
 					<strong class="product-price">-@item.Discount.ToString("N")</strong>
-				
+
 					@* <span class="icon-cross">
 							<form asp-controller="Shop" asp-action="Cart" method="post">
 								<input type="hidden" name="itemId" value="@item.Id" />
@@ -67,9 +67,15 @@
  @model ItemsViewModel
 
 <style>
-    .custom-btn {
-        font-size: 0.875rem;
-        padding: 0.25rem 0.5rem;
+
+
+    .my-custom-btn {
+        font-weight: 600;
+        /* padding: 12px 30px; */
+        border-radius: 10px;
+        color: #ffffff;
+        background: #3b5d50;
+        border-color: #3b5d50;
     }
 </style>
 
@@ -89,36 +95,47 @@
 
 <!-- Category Filter Section -->
 <div class="container my-4 d-flex justify-content-between">
-	<form method="get" asp-action="Index">
-		<span class="form-group">
-			<label for="category" class="form-label">Category</label>
-			<select id="category" name="categoryId" class="form-select form-select-sm w-100">
-				<option value="">All Categories</option>
-				@foreach (var category in Model.Categories)
-				{
-					@if (category.CId == Model.SelectedCategoryId)
-					{
-						<option value="@category.CId" selected>@category.Name</option>
-					}
-					else
-					{
-						<option value="@category.CId">@category.Name</option>
-					}
-				}
-			</select>
-		</span>
-		<button type="submit" class="btn btn-primary mt-2 btn-sm ">Filter</button>
-		
-	</form>
-	<form method="get" asp-action="Index">
-	<span class="col-auto form-select-sm w-100">
-		<label class="sr-only" for="searchString">Search</label>
-		<input type="text" id="searchString" name="searchString" class="form-control mb-2" placeholder="Search for items" value="@Model.SearchString" />
-	</span>
-	<div class="col-auto">
-		<button type="submit" class="btn btn-primary mb-2 btn-sm">Search</button>
-	</div>
-	</form>
+    <form method="get" asp-action="Index">
+        <div class="row align-items-center">
+            <div class="col-auto">
+
+                <select id="category" name="categoryId" class="form-select form-select-sm w-100">
+                    <option value="">All Categories</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        @if (category.CId == Model.SelectedCategoryId)
+                        {
+                            <option value="@category.CId" selected>@category.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@category.CId">@category.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="my-custom-btn  mt-2 btn-sm ">Filter</button>
+            </div>
+        </div>
+    </form>
+    <form method="get" asp-action="Index">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <label class="sr-only" for="searchString">Search</label>
+                <input type="text" id="searchString" name="searchString" class="form-control form-control-sm mb-2" placeholder="Search for items" value="@Model.SearchString" style="height: 30px; font-size: 0.875rem;" />
+            </div>
+            <div class="col-auto d-flex align-items-center">
+                <button type="submit" class="my-custom-btn mb-2"><i class="fa-solid fa-search"></i></button>
+            </div>
+            <div class="col-auto d-flex align-items-center">
+                <button type="button" id="clearSearch" class="my-custom-btn  mb-2"><i class="fa-solid fa-eraser"></i></button>
+            </div>
+        </div>
+    </form>
+
+
+
 </div>
 
 
@@ -134,7 +151,7 @@
                         <img src="@item.ImageURL" class="img-fluid product-thumbnail">
                         <h3 class="product-title">@item.Name</h3>
                         <strong class="product-price">@item.Price.ToString("N")</strong><br />
-                        <strong class="product-price">-@item.Discount.ToString("N")</strong>
+                        @* <strong class="product-price">-@item.Discount.ToString("N")</strong> *@
 
                         <div class="container">
                             <form asp-controller="Shop" asp-action="Cart" method="post">
@@ -152,5 +169,12 @@
     </div>
 </div>
 
+<script>
+    document.getElementById('clearSearch').addEventListener('click', function () {
+        // Clear the search input
+        document.getElementById('searchString').value = '';
 
+    });
+
+</script>
 

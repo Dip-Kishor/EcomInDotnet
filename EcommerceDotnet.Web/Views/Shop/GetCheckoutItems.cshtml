@@ -6,9 +6,7 @@
 
 <h1>Checkout Items List</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -34,8 +32,12 @@
                 @Html.DisplayNameFor(model => model.Phone)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
+                @Html.DisplayNameFor(model => model.ProductName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th> 
+            
             <th></th>
         </tr>
     </thead>
@@ -65,8 +67,12 @@
                     @(item.Phone ?? "N/A")
                 </td>
                 <td>
-                    @(item.Amount )
+                    @(item.ProductName)
                 </td>
+                <td>
+                    @(item.Amount )
+                </td> 
+                
             </tr>
         }
     </tbody>

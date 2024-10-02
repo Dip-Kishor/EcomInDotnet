@@ -36,7 +36,7 @@
        
     </dl>
 
-    <form asp-action="RemoveFromCart">
+    <form asp-controller="Shop" asp-action="Delete" method="post">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
