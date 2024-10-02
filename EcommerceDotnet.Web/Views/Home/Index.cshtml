@@ -45,7 +45,7 @@
 						<img src="@item.ImageURL" class="img-fluid product-thumbnail">
 						<h3 class="product-title">@item.Name</h3>
 						<strong class="product-price">@item.Price.ToString("N")</strong><br />
-						<strong class="product-price">-@item.Discount.ToString("N")</strong>
+						@* <strong class="product-price">-@item.Discount.ToString("N")</strong> *@
 
 						<span class="icon-cross">
 							<form asp-controller="Shop" asp-action="Cart" method="post">
