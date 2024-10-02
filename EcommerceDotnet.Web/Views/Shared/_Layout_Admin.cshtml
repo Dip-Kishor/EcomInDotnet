@@ -1,4 +1,12 @@
-﻿
+﻿@{
+    // Retrieve the username from the cookie
+    var email = Context.Request.Cookies["Email"];
+    var username = Context.Request.Cookies["UserName"];
+    var role = Context.Request.Cookies["Role"];
+    ViewBag.Email = email;
+    ViewBag.Username = username;
+    ViewBag.Role = role;
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,8 +25,82 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="/css/tiny-slider.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/site.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #4e73df;
+            margin: 5% 65%;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 20%;
+            color: white;
+        }
+
+        .userInfoButton {
+            background-color: #3b5d50;
+            color: white;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .custom-user-btn {
+            border: none; /* Remove the border */
+            background: none; /* Remove background */
+            padding: 0; /* Remove padding */
+            color: #4e73df;
+            cursor: pointer;
+            /* width:2%; */
+        }
+
+            .custom-user-btn:focus {
+                outline: none; /* Remove focus outline */
+            }
+
+            .custom-user-btn:hover {
+                color: black; /* Optional hover effect */
+            }
+
+        .custom-btn {
+            border: none; /* Remove the border */
+            background: none; /* Remove background */
+            padding: 0; /* Remove padding */
+            color: #fff;
+            cursor: pointer;
+            width: 20%;
+        }
+
+    </style>
     @RenderSection("Styles",false)
 </head>
 
@@ -89,10 +171,18 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" asp-controller="Account" asp-action="Index" data-toggle="collapse" data-target="#collapseUtilities"
+                @if (User.IsInRole("admin"))
+                {
+                    <a class="nav-link collapsed" asp-controller="Account" asp-action="Index" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fa fa-user-circle"></i>
+                        <span>Users</span> 
+                    </a>
+                }
+                <a class="nav-link collapsed" asp-controller="Home" asp-action="Index" data-toggle="collapse" data-target="#collapseUtilities"
                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fa fa-user-circle"></i>
-                    <span>Users</span> 
+                    <i class="fa fa-home"></i>
+                    <span>Home Page</span> 
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
@@ -354,11 +444,31 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin DSP</span>
-                                <img class="img-profile rounded-circle"
-                                     src="img/undraw_profile.svg">
+                                
+                                <!-- Your button to open the modal -->
+                                <button class="custom-user-btn" id="open-modal123"><i class="fa-solid fa-user-circle"></i></button>
+
+                                <!-- The Modal -->
+                                <div id="myModal123" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close" id="close-modal12">&times;</span>
+                                        <h2>User Information</h2>
+                                        <span>Username:&nbsp; @ViewBag.Username</span>
+                                        <span>Email:&nbsp; @ViewBag.Email</span>
+                                        <span>Role:&nbsp; @ViewBag.Role</span>
+                                        <div class="d-flex ms-auto">
+                                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                                <button class="custom-btn" type="submit" id="logout-button">
+                                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                                </button>
+                                            </form>
+                                            <span class="custom-btn ms-2" id="close-modal123">Close</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                          @*   <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -377,12 +487,15 @@
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
-                            </div>
+                            </div> *@
                         </li>
 
                     </ul>
+                    <!-- The Modal -->
+                   
 
                 </nav>
+               
                 <!-- End of Topbar -->
                 @RenderBody()
                 <footer class="sticky-footer bg-white">
@@ -395,5 +508,35 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/tiny-slider.js"></script>
+    <script src="/js/custom.js"></script>
+    <script src="/js/site.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Open the modal
+            $('#open-modal123').click(function () {
+                $('#myModal123').fadeIn();
+            });
+
+            // Close the modal
+            $('#close-modal123, #close-modal12').click(function () {
+                $('#myModal123').fadeOut();
+            });
+
+            // Optional: Close modal when clicking outside of it
+            $(window).click(function (event) {
+                if ($(event.target).is('#myModal123')) {
+                    $('#myModal123').fadeOut();
+                }
+            });
+
+            // Confirm button action
+            $('#logout-button').click(function () {
+                $('#myModal123').fadeOut(); // Close the modal after confirming
+            });
+        });
+    </script>
 </body>
 </html>
