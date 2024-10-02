@@ -27,6 +27,8 @@ namespace EcommerceDotnet.Models
 		[StringLength(60)]
 		public string Phone { get; set; }
 		public string? Notes {  get; set; }
+		[StringLength(60)]
+		public string ProductName { get; set; }
 		[Column(TypeName ="Decimal(20,5)")]
 		public float Amount { get; set; }
 
