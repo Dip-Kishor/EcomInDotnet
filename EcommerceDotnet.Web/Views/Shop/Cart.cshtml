@@ -18,72 +18,70 @@
 <div class="untree_co-section before-footer-section">
     <div class="container">
         <div class="row mb-5">
-            <form class="col-md-12" method="post">
-                <div class="site-blocks-table">
+            @* <form class="col-md-12" method="post"> *@
+            <div class="site-blocks-table">
+                @if (_mysession.CartItems == null || !_mysession.CartItems.Any())
+                {
+                    <h2>Your cart is empty.</h2>
+                }
+                else
+                {
                     <table class="table">
                         <thead>
                             <tr>
                                 <th class="product-thumbnail">Image</th>
-                                <th class="product-name">Product</th>
-                                <th class="product-price">Price</th>
+                                <th class="product-name">Product Name</th>
+
                                 <th class="product-quantity">Quantity</th>
-                                <th class="product-total">Total</th>
+                                <th class="product-price">Price</th>
+                                @* <th class="product-total">Total</th> *@
                                 <th class="product-remove">Remove</th>
                             </tr>
                         </thead>
-                        @if (_mysession.CartItems == null)
+
+
+                        @foreach (var item in _mysession.CartItems)
                         {
-                            <p>Your cart is empty.</p>
+
+                            <tbody>
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <img src="@item.ImageURL" alt="Image" class="img-fluid">
+                                    </td>
+                                    <td class="product-name">
+                                        <h2 class="h5 text-black">@item.Name</h2>
+                                    </td>
+
+                                    <td>
+                                        @*  <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+                                <div class="input-group-prepend">
+                                <button class="btn btn-outline-black decrease" type="button">&minus;</button>
+                                </div>
+                                <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                <div class="input-group-append">
+                                <button class="btn btn-outline-black increase" type="button" disabled>&plus;</button>
+                                </div>
+                                </div> *@
+                                        <p>1</p>
+                                    </td>
+                                    <td>@item.Price</td>
+
+                                    <td>
+                                        <!-- Ensure each item has its own form for removing the item -->
+                                        <form asp-controller="Shop" asp-action="Delete" method="post">
+                                            <input type="hidden" name="itemId" value="@item.Id" />
+                                            <button type="submit" class="btn btn-link">Remove</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
                         }
-                        else
-                        {
-                            
-                               
-                                foreach (var item in _mysession.CartItems)
-                                {
-                                <tbody>
-                                  
-                                   
-                                    <tr>
-                                        <td class="product-thumbnail">
-                                            <img src="@item.ImageURL" alt="Image" class="img-fluid">
-                                        </td>
-                                        <td class="product-name">
-                                            <h2 class="h5 text-black">@item.Name</h2>
-                                        </td>
-                                        <td>@item.Price</td>
-                                        <td>
-                                            <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                                                <div class="input-group-prepend">
-                                                    <button class="btn btn-outline-black decrease" type="button">&minus;</button>
-                                                </div>
-                                                <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                                                </div>
-                                            </div>
 
-                                        </td>
-                                        <td>@item.Price</td>
-
-                                        <td>
-                                            <form asp-action="RemoveFromCart" asp-controller="Shop">
-                                                <input type="hidden" name="itemId" value="@item.Id" />
-                                                <button type="submit" class="btn btn-link">Remove</button>
-                                            </form>
-                                        </td>
-
-                                        
-                                    </tr>
-                                    total += @item.Price;
-
-                                </tbody>
-                            }
-                            
-                        }
                     </table>
-                </div>
-            </form>
+                }
+
+            </div>
+            @* </form> *@
         </div>
 
         <div class="row">
@@ -94,7 +92,7 @@
                     </div>
                     <div class="col-md-6">
                         <a asp-controller="Shop" asp-action="Index">
-                        <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
+                            <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
                         </a>
                     </div>
                 </div>
@@ -114,41 +112,33 @@
             <div class="col-md-6 pl-5">
                 <div class="row justify-content-end">
                     <div class="col-md-7">
-                        @* <div class="row">
-                            <div class="col-md-12 text-right border-bottom mb-5">
-                                <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <span class="text-black">Subtotal</span>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <strong class="text-black">$230.00</strong>
-                            </div>
-                        </div>
-                        <div class="row mb-5">
-                            <div class="col-md-6">
-                                <span class="text-black">Total</span>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <strong class="text-black"></strong>
-                            </div>
-                        </div>
-
-                        <div class="row"> *@
+                        <div class="col-md-12">
+                            <a asp-controller="Shop" asp-action="Checkout">
+                                <button id="checkoutButton" class="btn btn-black btn-lg py-3 btn-block">Proceed To Checkout</button>
+                            </a>
                           
 
-                            <div class="col-md-12">
-                                <a asp-controller="Shop" asp-action="Checkout">
-                                <button class="btn btn-black btn-lg py-3 btn-block" >Proceed To Checkout</button>
-                                </a>
-                            </div>
-                            
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
+<script>
+    document.getElementById('checkoutButton').addEventListener('click', function (event) {
+        // Check if cart items exist
+        var cartItemsExist = @(_mysession.CartItems != null && _mysession.CartItems.Any() ? "true" : "false");
+
+        if (!cartItemsExist) {
+            // Prevent default behavior (navigation)
+            event.preventDefault();
+
+            // Show alert message
+            alert("Your cart is empty. Please add items before proceeding to checkout.");
+        }
+    });
+
+</script>
