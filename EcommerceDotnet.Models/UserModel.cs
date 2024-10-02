@@ -15,6 +15,7 @@ namespace EcommerceDotnet.Models
         public string Password { get; set; }
 
         // Foreign key for Role
+        [Required]
         public int RoleId { get; set; }
 
         // Navigation property
