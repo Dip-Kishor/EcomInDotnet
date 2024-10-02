@@ -34,9 +34,15 @@ namespace EcommerceDotnet.Web.Controllers
 		{
 			return View();
 		}
-		[ActionName("AddUser")]
-		public async Task<IActionResult> Add(UserModel user)
+		[HttpPost,ActionName("AddUser")]
+		public async Task<IActionResult> AddUser(UserModel user)
 		{
+			if(user.RoleId== 0)
+			{
+				user.RoleId = 3;
+                ModelState.Remove("Role");
+				
+            }
 			if (ModelState.IsValid)
 			{
 				await _accountService.Add(user);
