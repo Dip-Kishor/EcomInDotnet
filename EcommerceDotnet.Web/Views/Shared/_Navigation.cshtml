@@ -1,66 +1,72 @@
 ﻿@{
-	// Retrieve the username from the cookie
-	var email = Context.Request.Cookies["Email"];
-	var username = Context.Request.Cookies["UserName"];
-	var role = Context.Request.Cookies["Role"];
-	ViewBag.Email = email;
-	ViewBag.Username = username;
-	ViewBag.Role = role;
+    // Retrieve the username from the cookie
+    var email = Context.Request.Cookies["Email"];
+    var username = Context.Request.Cookies["UserName"];
+    var role = Context.Request.Cookies["Role"];
+    ViewBag.Email = email;
+    ViewBag.Username = username;
+    ViewBag.Role = role;
 }
 
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
-	<div class="container">
-		<a class="navbar-brand" asp-controller="Home" asp-action="Index">Furni Emporium</a>
+    <div class="container">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Furni Emporium</a>
 
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-		<div class="collapse navbar-collapse" id="navbarsFurni">
-			<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0"> 
-				<li >
-					<a class="nav-link" asp-controller="Home" asp-action="index">Home</a>
-				</li>
-				<li><a class="nav-link" asp-controller="Shop" asp-action="index">Shop</a></li>
-				<li><a class="nav-link" href="#">About us</a></li>
-				@* <li><a class="nav-link" href="#">Services</a></li>
-				<li><a class="nav-link" href="#">Blog</a></li> *@
-				<li><a class="nav-link" href="#">Contact us</a></li>
-				@if (!User.Identity.IsAuthenticated)
-				{
-					<li><a class="nav-link" asp-controller="Account" asp-action="Login">Login</a></li>
-				}
-				else
-				{
-					if (User.IsInRole("admin") || User.IsInRole("manager"))
-					{
-						<li>
-							<a class="nav-link" asp-controller="Item" asp-action="Index">Admin Dashboard</a>
-						</li>
-					}
-					<button class=" custom-user-btn" id="open-modal">
-							<i class="fa-solid fa-user"></i>
-						</button>
-				}
-			</ul>
-			<!-- The Modal -->
-			<div id="myModal" class="modal">
-				<div class="modal-content">
-					<span class="close" id="close-modal">&times;</span>
-					<h2>User Information</h2>
-					<span>Username:&nbsp; @ViewBag.Username</span>
-					<span>Email:&nbsp; @ViewBag.Email</span>
-					<span>Role:&nbsp; @ViewBag.Role</span>
-					<div class="d-flex ms-auto">
-						<form asp-controller="Account" asp-action="Logout" method="post">
-							<button class=" custom-btn1" type="submit" id="logout-button"><i class="fa-solid fa-right-from-bracket"></i></button>
-						</form>
-						<span class=" custom-btn1 ms-2" id="close-modal1">Close</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li>
+                    <a class="nav-link" asp-controller="Home" asp-action="index">Home</a>
+                </li>
+                <li><a class="nav-link" asp-controller="Shop" asp-action="index">Shop</a></li>
+                <li><a class="nav-link" href="#">About us</a></li>
+                @* <li><a class="nav-link" href="#">Services</a></li>
+                <li><a class="nav-link" href="#">Blog</a></li> *@
+                <li><a class="nav-link" href="#">Contact us</a></li>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <li><a class="nav-link" asp-controller="Account" asp-action="Login">Login</a></li>
+                }
+                else
+                {
+                    if (User.IsInRole("admin") || User.IsInRole("manager"))
+                    {
+                        <li>
+                            <a class="nav-link" asp-controller="Item" asp-action="Index">Admin Dashboard</a>
+                        </li>
+                    }
+                    <li><a class="nav-link" asp-controller="Shop" asp-action="Cart"> <i class="fa-solid fa-cart-plus"></i></a></li>
+                    <button class=" custom-user-btn" id="open-modal">
+                        <i class="fa-solid fa-user"></i>
+                    </button>
+                }
+            </ul>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="close-modal">&times;</span>
+                    <div class="d-flex justify-content-center align-items-center ">
+                        <div class="container text-center">
+                            <h3>User Information</h3>
+                            <i class="fa-solid fa-user fa-3x" height="100px"></i>
+                            <p>Username:&nbsp; @ViewBag.Username</p>
+                            <p>Email:&nbsp; @ViewBag.Email</p>
+                            <p>Role:&nbsp; @ViewBag.Role</p>
+                        </div>
+                    </div>
+                    <div class="d-flex ms-auto">
+                        <form asp-controller="Account" asp-action="Logout" method="post">
+                            <button class=" custom-btn1" type="submit" id="logout-button"><i class="fa-solid fa-right-from-bracket"></i></button>
+                        </form>
+                        <span class=" custom-btn1 ms-2" id="close-modal1">Close</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </nav>
