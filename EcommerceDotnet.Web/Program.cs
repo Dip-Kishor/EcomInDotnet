@@ -4,6 +4,7 @@ using EcommerceDotnet.Services;
 using EcommerceDotnet.Web.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using static EcommerceDotnet.Data.EcommerceContext;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,7 @@ builder.Services.AddAuthentication(Microsoft.AspNetCore.Authentication.Cookies.C
 	{
 		config.ExpireTimeSpan = TimeSpan.FromMinutes(20);
 		config.LoginPath = "/Account/Login";
+		config.AccessDeniedPath = "/Account/AccessDenied";
 	});
 
 //Authorization
@@ -36,6 +38,9 @@ builder.Services.AddAuthorization((options) =>
 {
 	options.AddPolicy("admin", policy => policy.RequireRole("admin"));
     options.AddPolicy("user", policy => policy.RequireRole("user"));
+    options.AddPolicy("manager", policy => policy.RequireRole("manager"));
+    options.AddPolicy("All", policy => policy.RequireRole("manager","admin","user"));
+    options.AddPolicy("AdminAndManager", policy => policy.RequireRole("manager","admin"));
     options.FallbackPolicy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 });
 
