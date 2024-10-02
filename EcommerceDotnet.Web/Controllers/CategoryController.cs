@@ -3,9 +3,11 @@ using EcommerceDotnet.Services;
 using IHostingEnvironmentMvc = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EcommerceDotnet.Web.Controllers
 {
+    [Authorize(Policy = "AdminAndManager")]
     public class CategoryController : Controller
     {
         readonly ICategory _catService;

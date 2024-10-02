@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EcommerceDotnet.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Policy = "AdminAndManager")]
     public class ItemController : Controller
 	{
 		readonly IItemService _itemService;

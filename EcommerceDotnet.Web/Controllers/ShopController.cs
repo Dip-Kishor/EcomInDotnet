@@ -62,13 +62,13 @@ namespace EcommerceDotnet.Web.Controllers
         }
 
 
-        [Authorize(Roles = "user")]
+        [Authorize(Policy = "All")]
         [ActionName("Cart")]
         public IActionResult Create()
         {
             return View();
         }
-        [Authorize(Roles = "user")]
+        [Authorize(Policy = "All")]
         //POST: Shop/AddToCart
         [HttpPost, ActionName("Cart")]
         public IActionResult AddToCart(int itemId)
@@ -83,13 +83,13 @@ namespace EcommerceDotnet.Web.Controllers
 
             return View(_session.CartItems); 
         }
-        [Authorize(Roles = "user")]
+        [Authorize(Policy = "All")]
         [ActionName("Delete")]
         public IActionResult RemovFromCart()
         {
             return View();
         }
-        [Authorize(Roles = "user")]
+        [Authorize(Policy = "All")]
         [HttpPost, ActionName("Delete")]
         public IActionResult RemoveFromCart(int itemId)
         {
@@ -103,7 +103,7 @@ namespace EcommerceDotnet.Web.Controllers
 
 
 
-        [Authorize(Roles = "user")]
+        [Authorize(Policy = "All")]
         public IActionResult Checkout()
 		{
 			var cartItems = _session.CartItems;
@@ -115,7 +115,7 @@ namespace EcommerceDotnet.Web.Controllers
 
 			return View(checkoutViewModel);
 		}
-        [Authorize(Roles = "user")]
+        [Authorize(Policy = "All")]
         [HttpPost]
 		public IActionResult ProcessCheckout(CheckoutViewModel model)
 		{
@@ -145,12 +145,12 @@ namespace EcommerceDotnet.Web.Controllers
 
 			return RedirectToAction("ThankYou");
 		}
-        [Authorize(Roles = "user")]
+        [Authorize(Policy = "All")]
         public IActionResult ThankYou()
 		{
 			return View();
 		}
-        [Authorize(Roles = "user")]
+        [Authorize(Policy = "AdminAndManager")]
         public IActionResult GetCheckoutItems()
         {
             var checkoutItems = _shopService.GetCheckoutItems();

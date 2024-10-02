@@ -20,14 +20,16 @@ namespace EcommerceDotnet.Web.Controllers
 			_accountService = accountService;
 			_httpcontextAccessor = httpcontextAccessor;
 		}
-		/*================================================================*/
-		public async Task<IActionResult> Index()
+        /*================================================================*/
+        [Authorize(Policy = "admin")]
+        public async Task<IActionResult> Index()
 		{
 			List<UserModel> items = await _accountService.List();
 			return View(items);
 		}
-		/*================================================================*/
-		[HttpGet, ActionName("AddUser")]
+        /*================================================================*/
+        [Authorize(Policy = "admin")]
+        [HttpGet, ActionName("AddUser")]
 		public IActionResult Create()
 		{
 			return View();
@@ -42,8 +44,9 @@ namespace EcommerceDotnet.Web.Controllers
 			}
 			return View(user);
 		}
-		/*================================================================*/
-		public async Task<IActionResult> Delete(int? id)
+        /*================================================================*/
+        [Authorize(Policy = "admin")]
+        public async Task<IActionResult> Delete(int? id)
 		{
 			if (id == null)
 			{
@@ -59,8 +62,8 @@ namespace EcommerceDotnet.Web.Controllers
 			return View(user);
 		}
 
-
-		[HttpPost, ActionName("Delete")]
+        [Authorize(Policy = "admin")]
+        [HttpPost, ActionName("Delete")]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 
@@ -68,8 +71,10 @@ namespace EcommerceDotnet.Web.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-		/*================================================================*/
-		[HttpGet, ActionName("Edit")]
+        /*================================================================*/
+
+        [Authorize(Policy = "admin")]
+        [HttpGet, ActionName("Edit")]
 
 		public async Task<IActionResult> Update(int id)
 		{
@@ -81,8 +86,8 @@ namespace EcommerceDotnet.Web.Controllers
 			return View(user);
 		}
 
-
-		[HttpPost, ActionName("Edit")]
+        [Authorize(Policy = "admin")]
+        [HttpPost, ActionName("Edit")]
 		public async Task<IActionResult> Update(int id, UserModel user)
 		{
 			if (ModelState.IsValid)
@@ -114,8 +119,6 @@ namespace EcommerceDotnet.Web.Controllers
 					return View(); // Return login view with error
 				}
 
-
-				
 				SetTokenCookie("Email", email!);
 				SetTokenCookie("UserName", user.Username);
 				SetTokenCookie("Role", user.Role.RoleName);
@@ -177,7 +180,13 @@ namespace EcommerceDotnet.Web.Controllers
 				_httpcontextAccessor.HttpContext.Response.Cookies.Delete(cookie);
 			}
 			
-			return RedirectToAction("Login");
+			return RedirectToAction("Index","Home");
+		}
+		[HttpGet]
+		public IActionResult AccessDenied(string returnUrl)
+		{
+			ViewBag.ReturnUrl = returnUrl;
+			return View();
 		}
 	}
 }
