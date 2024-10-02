@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+
+
+
+
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container m-5 border-1 text-center">
+        <h1 class="text-danger">Access Denied</h1>
+        <p class="text-danger">Sorry, you do not have permission to access this page.</p>
+        @if (!string.IsNullOrEmpty(ViewBag.ReturnUrl))
+        {
+            <p class="text-danger">You tried to access: <strong>@ViewBag.ReturnUrl</strong></p>
+        }
+
+        <img src="/images/image_processing20210902-5100-1yw5vv1.gif" style="width: 450px; height: auto;" alt="Access Denied" />
+
+        <br />
+        <div class="mt-3">
+            <a class="btn btn-primary me-2" href="@Url.Action("Login", "Account")">Log in with another account</a>
+            <a class="btn btn-secondary" href="@Url.Action("Index", "Home")">Go to the home page</a>
+        </div>
+    </div>
+</div>
