@@ -75,7 +75,7 @@ namespace EcommerceDotnet.Services
 			string hashedPassword = GetStringSha256Hash(password);
 
 			// Compare the generated hash with the stored hash in the database
-			if (password == user.Password)
+			if (hashedPassword == user.Password)
 			{
                 
                 return user;
