@@ -49,6 +49,7 @@ namespace EcommerceDotnet.Web.Controllers
 			if (!string.IsNullOrEmpty(searchString))
 			{
 				items = items.Where(item => item.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+                viewModel.Items = items;
 			}
 			return View(viewModel);
 		}
@@ -84,8 +85,8 @@ namespace EcommerceDotnet.Web.Controllers
             return View(_session.CartItems); 
         }
         [Authorize(Policy = "All")]
-        [ActionName("Delete")]
-        public IActionResult RemovFromCart()
+        [HttpGet,ActionName("Delete")]
+        public IActionResult RemoveFromCart()
         {
             return View();
         }
@@ -93,12 +94,23 @@ namespace EcommerceDotnet.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult RemoveFromCart(int itemId)
         {
-              
-            var item = _shopService.GetItem(itemId);
+
             var items = _session.CartItems;
-            items.Remove(item);
+
+            // Find the item by comparing the `Id` property (or another unique property)
+            var itemToRemove = items.FirstOrDefault(i => i.Id == itemId);
+
+            // Remove the item if it was found
+            if (itemToRemove != null)
+            {
+                items.Remove(itemToRemove);
+            }
+
+            // Update the session with the new list of items
             _session.CartItems = items;
-            return View(_session.CartItems);
+
+            // Redirect to the cart page
+            return RedirectToAction("Cart", "Shop");
         }
 
 
@@ -107,7 +119,7 @@ namespace EcommerceDotnet.Web.Controllers
         public IActionResult Checkout()
 		{
 			var cartItems = _session.CartItems;
-			var checkoutViewModel = new CheckoutViewModel
+            var checkoutViewModel = new CheckoutViewModel
 			{
 				CheckOut = new CheckOutModel(),
 				CartItems = cartItems
@@ -120,7 +132,8 @@ namespace EcommerceDotnet.Web.Controllers
 		public IActionResult ProcessCheckout(CheckoutViewModel model)
 		{
 			var cartItems = _session.CartItems;
-			var checkoutItems = new List<CheckOutModel>();
+            
+            var checkoutItems = new List<CheckOutModel>();
 
 			foreach (var item in cartItems)
 			{
@@ -135,7 +148,8 @@ namespace EcommerceDotnet.Web.Controllers
 					Email = model.CheckOut.Email,
 					Phone = model.CheckOut.Phone,
 					Notes = model.CheckOut.Notes,
-					Amount = (float)item.Price 
+					Amount = (float)item.Price,
+                    ProductName = item.Name,
 				});
 			}
 
