@@ -33,18 +33,18 @@
 
     <div class="untree_co-section">
         <div class="container">
-            <div class="row mb-5">
+            @* <div class="row mb-5">
                 <div class="col-md-12">
                     <div class="border p-4 rounded" role="alert">
                         Returning customer? <a href="#">Click here</a> to login
                     </div>
                 </div>
-            </div>
+            </div> *@
             <div class="row">
                 <div class="col-md-6 mb-5 mb-md-0">
                     <h2 class="h3 mb-3 text-black">Billing Details</h2>
                     <div class="p-3 p-lg-5 border bg-white">
-                        <form asp-controller="Shop" asp-action="ProcessCheckout" method="Post">
+                        @* <form asp-controller="Shop" asp-action="ProcessCheckout" method="Post">
                             <div class="form-group">
                                 <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
                                 <select asp-for="CheckOut.Country" class="form-control">
@@ -88,7 +88,66 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary">Place Order</button>
+                        </form> *@
+                        <form asp-controller="Shop" asp-action="ProcessCheckout" method="post" id="checkoutForm">
+                            <div class="form-group">
+                                <label for="CheckOut.Country" class="text-black">Country <span class="text-danger">*</span></label>
+                                <select name="CheckOut.Country" class="form-control" required>
+                                    <option value="">Select a country</option>
+                                    <option value="Bangladesh">Bangladesh</option>
+                                    <option value="Nepal">Nepal</option>
+                                    <option value="Afghanistan">Afghanistan</option>
+                                    <option value="China">China</option>
+                                    <option value="India">India</option>
+                                    <option value="Pakistan">Pakistan</option>
+                                </select>
+                                <span class="text-danger" style="display:none;">Country is required.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CheckOut.FirstName" class="text-black">First Name <span class="text-danger">*</span></label>
+                                <input name="CheckOut.FirstName" type="text" class="form-control" required>
+                                <span class="text-danger" style="display:none;">First Name is required.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CheckOut.LastName" class="text-black">Last Name <span class="text-danger">*</span></label>
+                                <input name="CheckOut.LastName" type="text" class="form-control" required>
+                                <span class="text-danger" style="display:none;">Last Name is required.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CheckOut.CompanyName" class="text-black">Company Name</label>
+                                <input name="CheckOut.CompanyName" type="text" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CheckOut.Address" class="text-black">Address <span class="text-danger">*</span></label>
+                                <input name="CheckOut.Address" type="text" class="form-control" required>
+                                <span class="text-danger" style="display:none;">Address is required.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CheckOut.Email" class="text-black">Email <span class="text-danger">*</span></label>
+                                <input name="CheckOut.Email" type="email" class="form-control" required>
+                                <span class="text-danger" style="display:none;">Email is required.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CheckOut.Phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                                <input name="CheckOut.Phone" type="text" class="form-control" required>
+                                <span class="text-danger" style="display:none;">Phone is required.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CheckOut.Notes" class="text-black">Order Notes</label>
+                                <textarea name="CheckOut.Notes" cols="30" rows="5" class="form-control" placeholder="Write your notes here..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Place Order</button>
                         </form>
+
+
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -106,16 +165,16 @@
                                         {
                                             <tr>
                                                 <td>@item.Name <strong class="mx-2">x</strong>1</td>
-                                                <td>$@item.Price</td>
+                                                <td>Npr.@item.Price</td>
                                             </tr>
                                         }
                                         <tr>
-                                            <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                                            <td class="text-black">$@Model.CartItems.Sum(i => i.Price)</td>
-                                        </tr>
+                                        @*     <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                                            <td class="text-black">Npr.@Model.CartItems.Sum(i => i.Price)</td>
+                                        </tr> *@
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                                            <td class="text-black font-weight-bold"><strong>$@Model.CartItems.Sum(i => i.Price)</strong></td>
+                                            <td class="text-black font-weight-bold"><strong>Npr.@Model.CartItems.Sum(i => i.Price)</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -130,5 +189,27 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/tiny-slider.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+        document.getElementById('checkoutForm').addEventListener('submit', function (event) {
+            let isValid = true;
+            const requiredFields = this.querySelectorAll('[required]');
+
+            requiredFields.forEach(function (field) {
+                const errorSpan = field.nextElementSibling; // Get the corresponding error message span
+
+                if (!field.value) {
+                    isValid = false;
+                    errorSpan.style.display = 'block'; // Show the error message
+                } else {
+                    errorSpan.style.display = 'none'; // Hide the error message
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+    </script>
+
 </body>
 </html>
