@@ -1,8 +1,8 @@
 ﻿@{
 	// Retrieve the username from the cookie
-	var email = Context.Request.Cookies["UserName"];
+	var email = Context.Request.Cookies["Email"];
 	var username = Context.Request.Cookies["UserName"];
-	var role = Context.Request.Cookies["UserName"];
+	var role = Context.Request.Cookies["Role"];
 	ViewBag.Email = email;
 	ViewBag.Username = username;
 	ViewBag.Role = role;
@@ -33,11 +33,15 @@
 				}
 				else
 				{
-					
-						<button class=" custom-user-btn" id="open-modal">
+					if (User.IsInRole("admin") || User.IsInRole("manager"))
+					{
+						<li>
+							<a class="nav-link" asp-controller="Item" asp-action="Index">Admin Dashboard</a>
+						</li>
+					}
+					<button class=" custom-user-btn" id="open-modal">
 							<i class="fa-solid fa-user"></i>
 						</button>
-					
 				}
 			</ul>
 			<!-- The Modal -->
@@ -50,9 +54,9 @@
 					<span>Role:&nbsp; @ViewBag.Role</span>
 					<div class="d-flex ms-auto">
 						<form asp-controller="Account" asp-action="Logout" method="post">
-							<button class=" custom-btn" type="submit" id="logout-button"><i class="fa-solid fa-right-from-bracket"></i></button>
+							<button class=" custom-btn1" type="submit" id="logout-button"><i class="fa-solid fa-right-from-bracket"></i></button>
 						</form>
-						<span class=" custom-btn ms-2" id="close-modal1">Close</span>
+						<span class=" custom-btn1 ms-2" id="close-modal1">Close</span>
 					</div>
 				</div>
 			</div>
