@@ -19,27 +19,35 @@
 
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li>
+                <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
                     <a class="nav-link" asp-controller="Home" asp-action="index">Home</a>
                 </li>
-                <li><a class="nav-link" asp-controller="Shop" asp-action="index">Shop</a></li>
-                <li><a class="nav-link" href="#">About us</a></li>
-                @* <li><a class="nav-link" href="#">Services</a></li>
-                <li><a class="nav-link" href="#">Blog</a></li> *@
-                <li><a class="nav-link" href="#">Contact us</a></li>
+                <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Shop" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
+                    <a class="nav-link" asp-controller="Shop" asp-action="index">Shop</a>
+                </li>
+                <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "AboutUs" ? "active" : "")">
+                    <a class="nav-link" asp-controller="AboutUs" asp-action="index">About us</a>
+                </li>
+               
+                <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "ContactUs" ? "active" : "")">
+                    <a class="nav-link" asp-controller="ContactUs" asp-action="index">Contact us</a>
+                </li>
                 @if (!User.Identity.IsAuthenticated)
                 {
-                    <li><a class="nav-link" asp-controller="Account" asp-action="Login">Login</a></li>
+                    <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Account" ? "active" : "")">
+                        <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
                 }
                 else
                 {
                     if (User.IsInRole("admin") || User.IsInRole("manager"))
                     {
-                        <li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Item" ? "active" : "")">
                             <a class="nav-link" asp-controller="Item" asp-action="Index">Admin Dashboard</a>
                         </li>
                     }
-                    <li><a class="nav-link" asp-controller="Shop" asp-action="Cart"> <i class="fa-solid fa-cart-plus"></i></a></li>
+                    <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Shop" && ViewContext.RouteData.Values["action"]?.ToString() == "Cart" ? "active" : "")">
+                        <a class="nav-link" asp-controller="Shop" asp-action="Cart"> <i class="fa-solid fa-cart-plus"></i></a></li>
                     <button class=" custom-user-btn" id="open-modal">
                         <i class="fa-solid fa-user"></i>
                     </button>
