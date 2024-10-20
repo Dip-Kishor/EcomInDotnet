@@ -18,11 +18,14 @@ builder.Services.AddDbContext<EcommerceContext>(options =>
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<MySession>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
 
 builder.Services.AddScoped<IShopService, ShopService>();
 builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICategory, CategoryService>();
+builder.Services.AddTransient<IContactService, ContactService>();
 //builder.Services.AddTransient<ILoginService, LoginService>();
 //Authentication
 builder.Services.AddAuthentication(Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)
