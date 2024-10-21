@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceDotnet.Web.Controllers
 {
-    [AllowAnonymous]
+    
     public class ContactUsController : Controller
     {
         private readonly IContactService _emailService;
@@ -13,10 +13,12 @@ namespace EcommerceDotnet.Web.Controllers
         {
             _emailService = emailService;
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
+        [Authorize(Policy ="All")]
         [HttpPost]
         public async Task<IActionResult> SendEmail(string fname, string lname, string email, string message)
         {
